@@ -19,12 +19,20 @@ interface Props {
   mode: SceneMode;
 }
 
-const FALLBACK_MODE = {
+type ModeConfig = {
+  color: string;
+  emissive: string;
+  ringColor: string;
+  particleColor: string;
+  scale: number;
+};
+
+const FALLBACK_MODE: ModeConfig = {
   color: "#bcd6ff", emissive: "#0a1f4a", ringColor: "#7fb0ff",
   particleColor: "#bcd6ff", scale: 1.0,
-} as const;
+};
 
-const MODES: Record<SceneMode, typeof FALLBACK_MODE> = {
+const MODES: Record<SceneMode, ModeConfig> = {
   intro:    { color: "#bcd6ff", emissive: "#0a1f4a", ringColor: "#7fb0ff", particleColor: "#bcd6ff", scale: 1.00 },
   about:    { color: "#a8d8ff", emissive: "#0a1830", ringColor: "#6fa8e8", particleColor: "#c0d8ff", scale: 0.90 },
   ai:       { color: "#9c88ff", emissive: "#1a0a3a", ringColor: "#b39bff", particleColor: "#c4b5fd", scale: 1.05 },
