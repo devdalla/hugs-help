@@ -343,6 +343,20 @@ function useScene(progress: MotionValue<number>, range: [number, number, number,
   return { opacity, y, scale };
 }
 
+function useLeadingScene(progress: MotionValue<number>, range: [number, number, number]) {
+  const opacity = useTransform(progress, range, [1, 1, 0]);
+  const y = useTransform(progress, range, [0, 0, -44]);
+  const scale = useTransform(progress, range, [1, 1, 0.98]);
+  return { opacity, y, scale };
+}
+
+function useTrailingScene(progress: MotionValue<number>, range: [number, number, number]) {
+  const opacity = useTransform(progress, range, [0, 1, 1]);
+  const y = useTransform(progress, range, [44, 0, 0]);
+  const scale = useTransform(progress, range, [0.98, 1, 1]);
+  return { opacity, y, scale };
+}
+
 function AboutScene({
   progress,
   index,
