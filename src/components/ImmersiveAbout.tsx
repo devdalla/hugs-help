@@ -52,10 +52,10 @@ export function ImmersiveAbout() {
   const tunnelCounterRotate = useTransform(scrollYProgress, [0, 1], [0, -42]);
   const tunnelScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.72, 1.05, 1.24]);
 
-  const sceneOne = useScene(scrollYProgress, [0, 0.05, 0.24, 0.36]);
-  const sceneTwo = useScene(scrollYProgress, [0.2, 0.3, 0.54, 0.66]);
-  const sceneThree = useScene(scrollYProgress, [0.5, 0.6, 0.8, 0.9]);
-  const sceneFour = useScene(scrollYProgress, [0.76, 0.84, 1, 1]);
+  const sceneOne = useLeadingScene(scrollYProgress, [0, 0.22, 0.38]);
+  const sceneTwo = useScene(scrollYProgress, [0.18, 0.3, 0.54, 0.7]);
+  const sceneThree = useScene(scrollYProgress, [0.46, 0.58, 0.8, 0.92]);
+  const sceneFour = useTrailingScene(scrollYProgress, [0.74, 0.86, 1]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -188,7 +188,12 @@ export function ImmersiveAbout() {
   };
 
   return (
-    <section id="about" ref={rootRef} className="relative isolate h-[320svh] bg-background">
+    <section
+      id="about"
+      ref={rootRef}
+      className="relative isolate bg-background"
+      style={{ height: `${ABOUT_HEIGHT}svh` }}
+    >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-background">
         <motion.div
           className="absolute inset-0"
