@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import {
   motion,
@@ -16,6 +16,7 @@ export function ImmersiveAbout() {
   const rootRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef(0);
+  const [pinState, setPinState] = useState<"before" | "active" | "after">("before");
 
   const { scrollYProgress } = useScroll({
     target: rootRef,
@@ -176,6 +177,35 @@ export function ImmersiveAbout() {
     };
   }, []);
 
+  useEffect(() => {
+    const updatePinState = () => {
+      const section = rootRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      if (rect.top > 0) {
+        setPinState("before");
+        return;
+      }
+
+      if (rect.bottom <= window.innerHeight) {
+        setPinState("after");
+        return;
+      }
+
+      setPinState("active");
+    };
+
+    updatePinState();
+    window.addEventListener("scroll", updatePinState, { passive: true });
+    window.addEventListener("resize", updatePinState);
+
+    return () => {
+      window.removeEventListener("scroll", updatePinState);
+      window.removeEventListener("resize", updatePinState);
+    };
+  }, []);
+
   const handleCardMove = (event: MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     mx.set((event.clientX - rect.left) / rect.width - 0.5);
@@ -194,7 +224,15 @@ export function ImmersiveAbout() {
       className="relative isolate bg-background"
       style={{ height: `${ABOUT_HEIGHT}vh` }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-background">
+      <div
+        className={`h-screen w-full overflow-hidden bg-background ${
+          pinState === "active"
+            ? "fixed inset-x-0 top-0 z-30"
+            : pinState === "after"
+              ? "absolute inset-x-0 bottom-0"
+              : "absolute inset-x-0 top-0"
+        }`}
+      >
         <motion.div
           className="absolute inset-0"
           style={{
