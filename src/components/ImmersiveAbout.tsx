@@ -192,9 +192,9 @@ export function ImmersiveAbout() {
       id="about"
       ref={rootRef}
       className="relative isolate bg-background"
-      style={{ height: `${ABOUT_HEIGHT}svh` }}
+      style={{ height: `${ABOUT_HEIGHT}vh` }}
     >
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-background">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-background">
         <motion.div
           className="absolute inset-0"
           style={{
