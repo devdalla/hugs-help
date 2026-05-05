@@ -10,6 +10,8 @@ import {
   type MotionValue,
 } from "framer-motion";
 
+const ABOUT_HEIGHT = 320;
+
 export function ImmersiveAbout() {
   const rootRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -50,10 +52,10 @@ export function ImmersiveAbout() {
   const tunnelCounterRotate = useTransform(scrollYProgress, [0, 1], [0, -42]);
   const tunnelScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.72, 1.05, 1.24]);
 
-  const sceneOne = useScene(scrollYProgress, [0, 0.05, 0.22, 0.34]);
-  const sceneTwo = useScene(scrollYProgress, [0.25, 0.34, 0.52, 0.64]);
-  const sceneThree = useScene(scrollYProgress, [0.55, 0.64, 0.78, 0.9]);
-  const sceneFour = useScene(scrollYProgress, [0.82, 0.9, 1, 1]);
+  const sceneOne = useScene(scrollYProgress, [0, 0.05, 0.24, 0.36]);
+  const sceneTwo = useScene(scrollYProgress, [0.2, 0.3, 0.54, 0.66]);
+  const sceneThree = useScene(scrollYProgress, [0.5, 0.6, 0.8, 0.9]);
+  const sceneFour = useScene(scrollYProgress, [0.76, 0.84, 1, 1]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -186,7 +188,7 @@ export function ImmersiveAbout() {
   };
 
   return (
-    <section id="about" ref={rootRef} className="relative isolate h-[420svh] bg-background">
+    <section id="about" ref={rootRef} className="relative isolate h-[320svh] bg-background">
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-background">
         <motion.div
           className="absolute inset-0"
